@@ -67,6 +67,11 @@ namespace AsterNET.Manager.Event
         /// </summary>
         public string UniqueId { get; set; }
 
+        /// <summary>
+        /// Get/Set Uniqueid of the oldest channel associated with this channel.
+        /// </summary>
+        public string LinkedId { get; set; }
+
         #endregion
 
         #region Constructors 
