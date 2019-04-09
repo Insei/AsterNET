@@ -1999,7 +1999,11 @@ namespace AsterNET.Manager
         {
             if (enableEvents && internalEvent != null)
                 if (UseASyncEvents)
-                    internalEvent.BeginInvoke(this, e, new AsyncCallback(eventComplete), null);
+                {
+                    var workTask = Task.Run(() => internalEvent(this, e));
+                    workTask.ContinueWith(eventComplete);
+                    //internalEvent.BeginInvoke(this, e, new AsyncCallback(eventComplete), null);
+                }
                 else
                     internalEvent.Invoke(this, e);
         }
