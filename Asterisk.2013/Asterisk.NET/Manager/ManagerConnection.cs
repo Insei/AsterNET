@@ -494,6 +494,16 @@ namespace AsterNET.Manager
         /// </summary>
         public event EventHandler<QueueSummaryEvent> QueueSummary;
 
+        /// <summary>
+        /// Raised when a soft hangup is requested with a specific cause code.
+        /// </summary>
+        public event EventHandler<SoftHangupRequestEvent> SoftHangupRequest;
+
+        /// <summary>
+        /// Raised when a soft hangup is requested with a specific cause code.
+        /// </summary>
+        public event EventHandler<HangupRequestEvent> HangupRequest;
+
         #endregion
 
         #region Constructor - ManagerConnection()
@@ -619,7 +629,8 @@ namespace AsterNET.Manager
             Helper.RegisterEventHandler(registeredEventHandlers, typeof(ChallengeSentEvent), arg => fireEvent(ChallengeSent, arg));
             Helper.RegisterEventHandler(registeredEventHandlers, typeof(SuccessfulAuthEvent), arg => fireEvent(SuccessfulAuth, arg));
             Helper.RegisterEventHandler(registeredEventHandlers, typeof(QueueSummaryEvent), arg => fireEvent(QueueSummary, arg));
-            
+            Helper.RegisterEventHandler(registeredEventHandlers, typeof(HangupRequestEvent), arg => fireEvent(HangupRequest, arg));
+            Helper.RegisterEventHandler(registeredEventHandlers, typeof(SoftHangupRequestEvent), arg => fireEvent(SoftHangupRequest, arg));
             #endregion
 
             this.internalEvent += new EventHandler<ManagerEvent>(internalEventHandler);
