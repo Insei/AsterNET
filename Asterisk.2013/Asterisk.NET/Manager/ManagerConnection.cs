@@ -46,6 +46,7 @@ namespace AsterNET.Manager
         private int pingInterval = 10000;
 
         private object lockSocket = new object();
+        private object lockSocketWrite = new object();
         private object lockHandlers = new object();
 
         private bool enableEvents = true;
@@ -1605,7 +1606,10 @@ namespace AsterNET.Manager
 
         private void sendToAsterisk(string buffer)
         {
-            mrSocket.Write(buffer);
+            lock (lockSocketWrite)
+            {
+                mrSocket.Write(buffer);
+            }
         }
 
         #endregion
